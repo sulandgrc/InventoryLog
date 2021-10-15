@@ -144,7 +144,17 @@ public class InventoryLogTest {
         log.subtract('a');
         assertEquals("[zb]", log.toString());
     }
-
+    @Test
+    public void testToString(){
+        InventoryLog log = new InventoryLog();
+        log.add('a');
+        log.add('z');
+        log.add('a');
+        log.add('A');
+        log.add('B');
+        log.add('?');
+        assertEquals("[azaab]", log.toString());
+    }
     @Test (expected = IllegalArgumentException.class)
     public void testIllegalSetCount(){
         InventoryLog inv = new InventoryLog();

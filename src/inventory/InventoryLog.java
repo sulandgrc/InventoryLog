@@ -20,18 +20,19 @@ public class InventoryLog implements Inventory {
 
     @Override
     public void subtract(char c) {
+        c = Character.toLowerCase(c);
         log.removeAll(Collections.singleton(c));
     }
 
     @Override
     public int get(char c) {
         if (Character.isLetter(c)) {
-            return Collections.frequency(log, c);
+            return Collections.frequency(log, Character.toLowerCase(c));
         }
         return -1;
     }
 
-    @Override
+
     /**
      * updates the count of the character c in the inventory accordingly:
      * if desired count is 0, then all matching characters are removed from the inventory
@@ -41,6 +42,7 @@ public class InventoryLog implements Inventory {
      * character is not a letter
      * @param count number to update count with, throws IllegalArgumentException if negative
      */
+    @Override
     public void set(char c, int count) {
         if (!Character.isLetter(c)) {
             throw new IllegalArgumentException(c + " is a letter.");
@@ -48,6 +50,7 @@ public class InventoryLog implements Inventory {
         if (count < 0) {
             throw new IllegalArgumentException(count + " cannot be negative.");
         }
+        c = Character.toLowerCase(c);
 
         // changes = current count of characters in inventory - desired count
         int changes = get(c) - count;
@@ -66,7 +69,7 @@ public class InventoryLog implements Inventory {
 
     @Override
     public boolean contains(char c) {
-        return log.contains(c);
+        return log.contains(Character.toLowerCase(c));
     }
 
     @Override
